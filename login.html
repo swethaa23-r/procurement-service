@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Stackly</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #080c1e;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* â”€â”€ PRELOADER â”€â”€ */
+    #preloader {
+        position: fixed; inset: 0;
+        background: #080c1e;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 99999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    .pl-logo { width: 48px; height: 48px; animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.9)} }
+
+    /* â”€â”€ LAYOUT â”€â”€ */
+    .page-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+    }
+    @media (max-width: 768px) {
+        .page-wrapper { grid-template-columns: 1fr; }
+        .left-panel { display: none; }
+    }
+
+    /* â”€â”€ LEFT PANEL â”€â”€ */
+    .left-panel {
+        position: relative;
+        background: #080c1e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 56px;
+        overflow: hidden;
+    }
+    .left-panel::before {
+        content: '';
+        position: absolute;
+        top: 20%; left: -20%;
+        width: 80vw; height: 80vh;
+        background: radial-gradient(circle, rgba(23,79,196,0.35) 0%, transparent 65%);
+        filter: blur(80px);
+        pointer-events: none;
+    }
+    /* Floating blue orbs */
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        background: #3B82F6;
+        opacity: 0.55;
+        filter: blur(1px);
+    }
+    .orb-1 { width: 14px; height: 14px; top: 42%; right: 22%; }
+    .orb-2 { width: 10px; height: 10px; top: 65%; right: 12%; }
+    .orb-3 { width: 8px;  height: 8px;  bottom: 22%; left: 36%; }
+
+    /* Connecting lines svg */
+    .orb-lines {
+        position: absolute;
+        inset: 0;
+        width: 100%; height: 100%;
+        opacity: 0.12;
+        pointer-events: none;
+    }
+
+    .left-logo {
+        position: absolute;
+        top: 36px; left: 44px;
+        display: flex; align-items: center; gap: 8px;
+        text-decoration: none; color: #fff;
+    }
+    .left-logo span { font-weight: 700; font-size: 16px; letter-spacing: 0.05em; }
+
+    .left-heading {
+        font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+        font-weight: 700;
+        line-height: 1.1;
+        color: #fff;
+        position: relative; z-index: 1;
+    }
+    .left-heading .dim { color: rgba(255,255,255,0.45); }
+
+    .left-sub {
+        margin-top: 20px;
+        font-size: 14px;
+        color: rgba(255,255,255,0.5);
+        line-height: 1.6;
+        max-width: 340px;
+        position: relative; z-index: 1;
+    }
+
+    /* â”€â”€ RIGHT PANEL â”€â”€ */
+    .right-panel {
+        background: #0c1229;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 56px;
+        position: relative;
+    }
+    .right-panel-inner {
+        max-width: 400px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* Mobile logo */
+    .mobile-logo {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 36px;
+        text-decoration: none;
+        color: #fff;
+    }
+    @media (max-width: 768px) {
+        .mobile-logo { display: flex; }
+        .right-panel { padding: 40px 24px; }
+    }
+
+    .form-heading {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 6px;
+    }
+    .form-sub {
+        font-size: 13px;
+        color: rgba(255,255,255,0.45);
+        margin: 0 0 32px;
+    }
+
+    /* Field label */
+    .field-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 8px;
+    }
+
+    /* Input field */
+    .input-box {
+        width: 100%;
+        background: #111627;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        padding: 13px 16px;
+        color: #fff;
+        font-size: 14px;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .input-box::placeholder { color: rgba(255,255,255,0.25); }
+    .input-box:focus { border-color: #3B82F6; }
+
+    /* Password wrapper */
+    .pwd-wrapper {
+        position: relative;
+    }
+    .pwd-wrapper .input-box { padding-right: 44px; }
+    .pwd-toggle {
+        position: absolute;
+        right: 14px; top: 50%;
+        transform: translateY(-50%);
+        background: none; border: none;
+        color: rgba(255,255,255,0.4);
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+    }
+    .pwd-toggle:hover { color: rgba(255,255,255,0.8); }
+
+    /* Select */
+    .select-box {
+        width: 100%;
+        background: #111627;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        padding: 13px 16px;
+        color: #fff;
+        font-size: 14px;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        cursor: pointer;
+    }
+    .select-box:focus { border-color: #3B82F6; color: #fff; }
+    .select-box option { background: #111627; color: #fff; }
+
+    .field-group { margin-bottom: 20px; }
+
+    /* Row for remember + forgot */
+    .row-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+    .checkbox-label {
+        display: flex; align-items: center; gap: 8px;
+        font-size: 12px; color: rgba(255,255,255,0.5); cursor: pointer;
+    }
+    .checkbox-label input[type=checkbox] {
+        width: 14px; height: 14px;
+        accent-color: #3B82F6;
+    }
+    .forgot-link {
+        font-size: 12px;
+        color: #3B82F6;
+        text-decoration: none;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-primary {
+        width: 100%;
+        background: #3B82F6;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary:hover {
+        background: #2563eb;
+        box-shadow: 0 0 20px rgba(59,130,246,0.35);
+    }
+
+    .form-footer {
+        text-align: center;
+        font-size: 13px;
+        color: rgba(255,255,255,0.4);
+        margin-top: 20px;
+    }
+    .form-footer a { color: #3B82F6; text-decoration: none; }
+    .form-footer a:hover { text-decoration: underline; }
+
+    .go-home {
+        display: block;
+        text-align: center;
+        margin-top: 14px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.3);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .go-home:hover { color: rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+<div class="split-layout" style="display:flex; min-height:100vh;">
+    <!-- LEFT PANEL -->
+    <div class="left-panel" style="flex:1;">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <a href="index.html" class="left-logo">
+            <img src="logo.webp" alt="Stackly" style="height: 64px; width: auto;"/>
+        </a>
+        <h1 class="left-heading" style="margin-top: 80px;">Welcome<br><span class="dim">Back</span></h1>
+        <p class="left-sub">Sign in to your Stackly dashboard to manage your procurement and optimize your spend.</p>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel" style="flex:1;">
+        <div class="right-panel-inner">
+            <a href="index.html" class="mobile-logo">
+                <img src="logo.webp" alt="Stackly" style="height: 64px; width: auto;"/>
+            </a>
+            <h2 class="form-heading">Sign In</h2>
+            <p class="form-sub">Enter your email and password to access your account.</p>
+
+                        <form action="dashboard/dashboard.html" method="GET" id="loginForm">
+                <div class="field-group">
+                    <label class="field-label">Account Role</label>
+                    <select class="select-box" required onchange="document.getElementById('loginForm').action = this.value;">
+                        <option value="dashboard/dashboard.html" selected>Procurement Manager</option>
+                        <option value="dashboard/supplier-dashboard.html">Supplier / Vendor</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Email Address</label>
+                    <input type="email" class="input-box" placeholder="hello@stackly.com" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Password</label>
+                    <div class="pwd-wrapper">
+                        <input type="password" class="input-box" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="row-between">
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+
+            <div class="form-footer">
+                Don't have an account? <a href="signup.html">Sign Up</a>
+            </div>
+            <a href="index.html" class="go-home">&larr; Back to Home</a>
+        </div>
+    </div>
+</div>
+<!-- CONTENT PRELOADER -->
+<div id="preloader" style="position:fixed;inset:0;background:#080c1e;display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity 0.6s ease,visibility 0.6s ease;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+        <img src="logo.webp" alt="Stackly" style="height:52px;width:auto;animation:plPulse 1.2s ease-in-out infinite;">
+        <div style="display:flex;gap:8px;align-items:center;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#3B82F6;animation:plDot 1.4s ease-in-out infinite;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#3B82F6;animation:plDot 1.4s ease-in-out 0.2s infinite;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#3B82F6;animation:plDot 1.4s ease-in-out 0.4s infinite;"></div>
+        </div>
+    </div>
+</div>
+<style>
+@keyframes plPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.88)} }
+@keyframes plDot { 0%,80%,100%{transform:scale(0);opacity:0.3} 40%{transform:scale(1);opacity:1} }
+</style>
+<script>
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        var p = document.getElementById('preloader');
+        if(p){ p.style.opacity='0'; p.style.visibility='hidden'; }
+    }, 900);
+});
+</script>
+
+
+</body>
+</html>
+
+
+
+
+

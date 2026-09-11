@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Procurement Overview | Stackly Dashboard</title>
+<link href="dashboard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+<!-- LEFT SIDEBAR -->
+<aside class="dash-sidebar slide-right-in" id="sidebar">
+<a class="sidebar-logo" href="../index.html">
+<img alt="Logo" src="../logo.webp" style="height: 32px; width: auto;"/>
+</a>
+<nav class="sidebar-nav">
+<div class="nav-label">OVERVIEW</div>
+<a class="nav-item active" href="procurement-dashboard.html"><i data-feather="pie-chart"></i> Dashboard</a>
+<div class="nav-label">PROCUREMENT</div>
+<a class="nav-item" href="purchase-orders.html"><i data-feather="file-text"></i> Purchase Orders</a>
+<a class="nav-item" href="suppliers.html"><i data-feather="users"></i> Suppliers</a>
+<a class="nav-item" href="contracts.html"><i data-feather="file"></i> Contracts</a>
+<div class="nav-label">ANALYTICS</div>
+<a class="nav-item" href="spend-supplier-analytics.html"><i data-feather="trending-up"></i> Spend Analysis</a>
+<a class="nav-item" href="reports.html"><i data-feather="bar-chart-2"></i> Reports</a>
+<div style="flex: 1;"></div>
+<div class="nav-label">SYSTEM</div>
+<a class="nav-item" href="settings.html"><i data-feather="settings"></i> Settings</a>
+<a class="nav-item" href="../login.html" onclick="return confirm('Are you sure you want to logout?');" style="color: var(--danger); margin-top: 8px;"><i data-feather="log-out"></i> Logout</a>
+</nav>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="dash-main">
+<!-- TOP HEADER -->
+<header class="dash-header stagger-1">
+<div class="header-left" style="display: flex; gap: 16px; align-items: center;">
+<button class="icon-btn menu-toggle" id="menuToggle"><i data-feather="menu"></i></button>
+<div class="header-title">
+<h1>Supplier Overview</h1>
+<p>Monitor your orders, contracts, and performance metrics.</p>
+</div>
+</div>
+<div class="header-actions">
+<button aria-label="Search" class="icon-btn"><i data-feather="search"></i></button>
+<button aria-label="Notifications" class="icon-btn" style="position: relative;">
+<i data-feather="bell"></i>
+<span style="position: absolute; top: 0; right: 2px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%;"></span>
+</button>
+<div style="display: flex; align-items: center; gap: 12px; margin-left: 12px; border-left: 1px solid var(--border-color); padding-left: 20px; cursor: pointer;">
+<div style="display: flex; flex-direction: column; align-items: flex-end;">
+<span style="font-size: 14px; font-weight: 600; color: var(--text-main);">Sarah Jenkins</span>
+<span style="font-size: 12px; color: var(--text-muted);">Procurement Manager</span>
+</div>
+<div aria-label="User profile" class="user-profile">SJ</div>
+</div>
+</div>
+</header>
+<!-- DASHBOARD CONTENT -->
+<div class="dash-content">
+<!-- WELCOME AREA -->
+<div class="welcome-area stagger-2" style="display: flex; justify-content: space-between; align-items: flex-end;">
+<div>
+<h2 style="font-size: 26px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">Good morning, Supplier Team</h2>
+<p style="font-size: 15px; color: var(--text-secondary);">Here's what's happening across your procurement operations.</p>
+</div>
+<div style="text-align: right; font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+<i data-feather="refresh-cw" style="width: 14px; height: 14px; cursor: pointer;"></i>
+                    Last updated Today, 10:42 AM
+                </div>
+</div>
+<!-- PROCUREMENT MODULES SECTION -->
+<div class="dash-section stagger-3" style="margin-bottom: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<div>
+<h3 style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin: 0 0 4px 0; display: flex; align-items: center; gap: 8px;">
+<i data-feather="layers" style="width: 20px; height: 20px; color: var(--accent-bright);"></i>
+                            Procurement Operations
+                        </h3>
+<p style="font-size: 14px; color: var(--text-muted); margin: 0;">Manage your core procurement workflow.</p>
+</div>
+</div>
+<div class="quick-access-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+<!-- CARD 1: PURCHASE ORDERS -->
+<a class="operation-card" href="purchase-orders.html">
+<div class="operation-card__header">
+<div class="icon-container"><i data-feather="file-text"></i></div>
+<span class="operation-card__status">Active</span>
+</div>
+<div>
+<div class="operation-card__value">1,248</div>
+<div class="operation-card__title">Purchase Orders</div>
+<div class="operation-card__meta">
+<span class="dot"></span> 42 pending approval â€¢ $340K total
+                            </div>
+</div>
+<div class="operation-card__footer">
+<span>Manage Orders</span>
+<i data-feather="arrow-right" style="width: 16px; height: 16px;"></i>
+</div>
+</a>
+<!-- CARD 2: SUPPLIERS -->
+<a class="operation-card" href="suppliers.html">
+<div class="operation-card__header">
+<div class="icon-container"><i data-feather="users"></i></div>
+<span class="operation-card__status">Verified</span>
+</div>
+<div>
+<div class="operation-card__value">128</div>
+<div class="operation-card__title">Suppliers</div>
+<div class="operation-card__meta">
+<span class="dot"></span> 6 new onboarded â€¢ 98.2% SLA score
+                            </div>
+</div>
+<div class="operation-card__footer">
+<span>Directory &amp; Metrics</span>
+<i data-feather="arrow-right" style="width: 16px; height: 16px;"></i>
+</div>
+</a>
+<!-- CARD 3: CONTRACTS -->
+<a class="operation-card" href="contracts.html">
+<div class="operation-card__header">
+<div class="icon-container"><i data-feather="file"></i></div>
+<span class="operation-card__status">Monitored</span>
+</div>
+<div>
+<div class="operation-card__value">46</div>
+<div class="operation-card__title">Contracts</div>
+<div class="operation-card__meta">
+<span class="dot"></span> 3 expiring soon â€¢ $1.2M committed
+                            </div>
+</div>
+<div class="operation-card__footer">
+<span>Review Lifecycle</span>
+<i data-feather="arrow-right" style="width: 16px; height: 16px;"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- KPI CARDS -->
+<div class="kpi-grid stagger-3" style="margin-bottom: 32px;">
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Total Spend</span>
+<i class="kpi-icon" data-feather="dollar-sign"></i>
+</div>
+<div class="kpi-card__value" data-value="2400000">$2.4M</div>
+<div class="kpi-card__trend up">
+<i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 8.2% 
+                        <span>vs last month</span>
+</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Total Savings</span>
+<i class="kpi-icon" data-feather="pie-chart"></i>
+</div>
+<div class="kpi-card__value" data-value="328000">$328K</div>
+<div class="kpi-card__trend up">
+<i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 12.5% 
+                        <span>vs last quarter</span>
+</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Active Suppliers</span>
+<i class="kpi-icon" data-feather="users"></i>
+</div>
+<div class="kpi-card__value" data-value="128">128</div>
+<div class="kpi-card__trend neutral">
+<i data-feather="plus" style="width: 14px; height: 14px;"></i> 6 
+                        <span>this month</span>
+</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Active Contracts</span>
+<i class="kpi-icon" data-feather="file-text"></i>
+</div>
+<div class="kpi-card__value" data-value="46">46</div>
+<div class="kpi-card__trend down">
+<i data-feather="alert-circle" style="width: 14px; height: 14px;"></i> 3 
+                        <span>expiring soon</span>
+</div>
+</div>
+</div>
+<!-- MIDDLE GRID -->
+<div class="middle-grid stagger-4">
+<!-- SPEND ANALYTICS -->
+<div class="dash-card">
+<div class="card-header">
+<span class="card-title">Spend Overview</span>
+<div class="chart-filters">
+<button class="chart-filter">7D</button>
+<button class="chart-filter">30D</button>
+<button class="chart-filter">90D</button>
+<button class="chart-filter active">12M</button>
+</div>
+</div>
+<div class="chart-container">
+<svg class="chart-svg" preserveaspectratio="none" viewbox="0 0 600 200">
+<defs>
+<lineargradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#3B82F6" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path class="chart-area" d="M0,200 L0,150 C50,150 80,80 120,90 C160,100 180,120 240,110 C300,100 320,60 380,50 C440,40 480,90 540,70 C580,56 600,30 600,30 L600,200 Z"></path>
+<path class="chart-line" d="M0,150 C50,150 80,80 120,90 C160,100 180,120 240,110 C300,100 320,60 380,50 C440,40 480,90 540,70 C580,56 600,30 600,30"></path>
+<!-- Hover interaction layer -->
+<rect class="chart-tooltip-area" fill="transparent" height="200" width="600" x="0" y="0"></rect>
+</svg>
+</div>
+</div>
+<!-- PROCUREMENT ACTIVITY -->
+<div class="dash-card stagger-5">
+<div class="card-header">
+<span class="card-title">Recent Activity</span>
+</div>
+<div class="activity-list">
+<div class="activity-item">
+<div class="activity-icon" style="color: var(--success); background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2);"><i data-feather="check-circle" style="width: 14px;"></i></div>
+<div class="activity-details">
+<h5>Purchase order approved</h5>
+<p>PO-10482 approved for Apex Components â€¢ 12 min ago</p>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon"><i data-feather="edit-2" style="width: 14px;"></i></div>
+<div class="activity-details">
+<h5>Supplier profile updated</h5>
+<p>Global Industrial updated tax info â€¢ 4h ago</p>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon" style="color: var(--warning); background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2);"><i data-feather="alert-circle" style="width: 14px;"></i></div>
+<div class="activity-details">
+<h5>Contract renewal approaching</h5>
+<p>Vertex Components â€¢ 14 days remaining â€¢ 5h ago</p>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon"><i data-feather="flag" style="width: 14px;"></i></div>
+<div class="activity-details">
+<h5>New sourcing event created</h5>
+<p>Q4 IT Hardware Refresh â€¢ 1d ago</p>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon"><i data-feather="file" style="width: 14px;"></i></div>
+<div class="activity-details">
+<h5>Invoice processed</h5>
+<p>INV-9824 paid to Prime Logistics â€¢ 1d ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RECENT PURCHASE ORDERS -->
+<div class="dash-card stagger-6" style="margin-top: 32px; padding: 0; overflow: hidden;">
+<div class="card-header" style="padding: 24px; margin-bottom: 0;">
+<span class="card-title">Recent Purchase Orders</span>
+<button class="icon-btn"><i data-feather="more-horizontal"></i></button>
+</div>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>PO Number</th>
+<th>Supplier</th>
+<th>Category</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-weight: 600; color: var(--accent-bright);">PO-1048</td>
+<td>Global Industrial</td>
+<td>Office Supplies</td>
+<td style="font-weight: 600;">$18,450</td>
+<td><span class="status-badge approved">Approved</span></td>
+<td style="color: var(--text-muted);">Sep 08</td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: var(--accent-bright);">PO-1047</td>
+<td>Vertex Components</td>
+<td>Technology</td>
+<td style="font-weight: 600;">$42,800</td>
+<td><span class="status-badge pending">Pending</span></td>
+<td style="color: var(--text-muted);">Sep 07</td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: var(--accent-bright);">PO-1046</td>
+<td>Prime Logistics</td>
+<td>Logistics</td>
+<td style="font-weight: 600;">$27,300</td>
+<td><span class="status-badge processing">Processing</span></td>
+<td style="color: var(--text-muted);">Sep 06</td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: var(--accent-bright);">PO-1045</td>
+<td>Apex Components</td>
+<td>Hardware</td>
+<td style="font-weight: 600;">$9,120</td>
+<td><span class="status-badge rejected">Rejected</span></td>
+<td style="color: var(--text-muted);">Sep 05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<footer style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<img alt="Stackly" src="../logo.webp" style="height: 24px; width: auto; opacity: 0.7;"/>
+<span style="font-size: 13px; color: rgba(255,255,255,0.4);">Â© 2026 Stackly. All rights reserved.</span>
+</div>
+<div style="display: flex; gap: 20px;">
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Privacy Policy</a>
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Terms</a>
+<a href="#" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Support</a>
+</div>
+</footer>
+</div>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>
+
+

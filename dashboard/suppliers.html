@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Suppliers | Stackly Dashboard</title>
+<link href="dashboard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+<!-- LEFT SIDEBAR -->
+<aside class="dash-sidebar slide-right-in" id="sidebar">
+<a class="sidebar-logo" href="../index.html">
+<img alt="Logo" src="../logo.webp" style="height: 32px; width: auto;"/>
+</a>
+<nav class="sidebar-nav">
+<a class="nav-item" href="procurement-dashboard.html"><i data-feather="pie-chart"></i> Dashboard</a>
+<a class="nav-item" href="purchase-orders.html"><i data-feather="file-text"></i> Purchase Orders</a>
+<a class="nav-item active" href="suppliers.html"><i data-feather="users"></i> Suppliers</a>
+<a class="nav-item" href="contracts.html"><i data-feather="file"></i> Contracts</a>
+<a class="nav-item" href="spend-supplier-analytics.html"><i data-feather="trending-up"></i> Spend Analysis</a>
+<a class="nav-item" href="reports.html"><i data-feather="bar-chart-2"></i> Reports</a>
+<div style="flex: 1;"></div>
+<a class="nav-item" href="settings.html"><i data-feather="settings"></i> Settings</a>
+<a class="nav-item" href="../login.html" onclick="return confirm('Are you sure you want to logout?');" style="color: #EF4444; margin-top: 8px;"><i data-feather="log-out"></i> Logout</a>
+</nav>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="dash-main">
+<!-- TOP HEADER -->
+<header class="dash-header stagger-1" style="display: block; padding: 0; border-bottom: 1px solid var(--border-color);">
+<div style="max-width: 1400px; margin: 0 auto; width: 100%; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;">
+<div class="header-left" style="display: flex; gap: 16px; align-items: center;">
+<button class="icon-btn menu-toggle" id="menuToggle"><i data-feather="menu"></i></button>
+<div class="header-title">
+<h1>Suppliers</h1>
+<p>Monitor supplier health, compliance, and performance metrics.</p>
+</div>
+</div>
+<div class="header-actions" style="display: flex; gap: 16px; align-items: center;">
+<button class="icon-btn"><i data-feather="search"></i></button>
+<button class="icon-btn" style="position: relative;">
+<i data-feather="bell"></i>
+<span style="position: absolute; top: 0; right: 2px; width: 8px; height: 8px; background: #EF4444; border-radius: 50%;"></span>
+</button>
+<div class="user-profile">PT</div>
+</div>
+</div>
+</header>
+<!-- DASHBOARD CONTENT -->
+<div class="dash-content">
+<!-- SECTION 1: Metrics -->
+<div class="kpi-grid stagger-2" style="margin-bottom: 32px;">
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Active Suppliers</span>
+<i class="kpi-icon" data-feather="users"></i>
+</div>
+<div class="kpi-card__value">342</div>
+<div class="kpi-card__trend up">
+<i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 12 
+                        <span>onboarded this month</span>
+</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Compliance Score</span>
+<i class="kpi-icon" data-feather="shield" style="color: var(--success);"></i>
+</div>
+<div class="kpi-card__value">94%</div>
+<div class="kpi-card__trend up">
+<i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 2% 
+                        <span>improvement</span>
+</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">High Risk Suppliers</span>
+<i class="kpi-icon" data-feather="alert-triangle" style="color: var(--danger);"></i>
+</div>
+<div class="kpi-card__value">8</div>
+<div class="kpi-card__trend down">
+<i data-feather="alert-circle" style="width: 14px; height: 14px;"></i> Requires immediate review
+                    </div>
+</div>
+<div class="kpi-card">
+<div class="kpi-card__header">
+<span class="kpi-title">Top Performing</span>
+<i class="kpi-icon" data-feather="award" style="color: var(--accent-bright);"></i>
+</div>
+<div class="kpi-card__value">98<span style="font-size: 16px; color: var(--text-muted);">/100</span></div>
+<div class="kpi-card__trend neutral">
+<a class="text-link" href="#" style="font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">View All <i data-feather="arrow-right" style="width: 12px; height: 12px;"></i></a>
+</div>
+</div>
+</div>
+<!-- SECTION 2: List Table -->
+<div class="charts-row stagger-3">
+<div class="chart-card" style="flex: 2;">
+<div class="chart-header">
+<h3>Top Performing Suppliers</h3>
+<a class="text-link" href="#">View All</a>
+</div>
+<div class="table-responsive" style="margin-top: 16px;">
+<table style="width: 100%; text-align: left; border-collapse: collapse;">
+<thead>
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);">
+<th style="padding: 12px 8px;">Supplier Name</th>
+<th style="padding: 12px 8px;">Category</th>
+<th style="padding: 12px 8px;">Spend (YTD)</th>
+<th style="padding: 12px 8px;">Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
+<td style="padding: 16px 8px; font-weight: 500;">TechCorp Solutions</td>
+<td style="padding: 16px 8px; color: rgba(255,255,255,0.7);">IT Hardware</td>
+<td style="padding: 16px 8px;">$1.2M</td>
+<td style="padding: 16px 8px; color: #10B981;">98/100</td>
+</tr>
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
+<td style="padding: 16px 8px; font-weight: 500;">Apex Cloud Services</td>
+<td style="padding: 16px 8px; color: rgba(255,255,255,0.7);">Software / SaaS</td>
+<td style="padding: 16px 8px;">$850K</td>
+<td style="padding: 16px 8px; color: #10B981;">95/100</td>
+</tr>
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.02);">
+<td style="padding: 16px 8px; font-weight: 500;">Global Office Supplies</td>
+<td style="padding: 16px 8px; color: rgba(255,255,255,0.7);">Facilities</td>
+<td style="padding: 16px 8px;">$340K</td>
+<td style="padding: 16px 8px; color: #F59E0B;">88/100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- SECTION 3: Risk Breakdown -->
+<div class="chart-card" style="flex: 1;">
+<div class="chart-header">
+<h3>Risk Distribution</h3>
+</div>
+<div style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+<span>Low Risk</span>
+<span>75%</span>
+</div>
+<div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+<div style="width: 75%; height: 100%; background: #10B981;"></div>
+</div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+<span>Medium Risk</span>
+<span>20%</span>
+</div>
+<div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+<div style="width: 20%; height: 100%; background: #F59E0B;"></div>
+</div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+<span>High Risk</span>
+<span>5%</span>
+</div>
+<div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+<div style="width: 5%; height: 100%; background: #EF4444;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<img alt="Stackly" src="../logo.webp" style="height: 24px; width: auto; opacity: 0.7;"/>
+<span style="font-size: 13px; color: rgba(255,255,255,0.4);">Â© 2026 Stackly. All rights reserved.</span>
+</div>
+<div style="display: flex; gap: 20px;">
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Privacy Policy</a>
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Terms</a>
+<a href="#" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Support</a>
+</div>
+</footer>
+</div>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>
+

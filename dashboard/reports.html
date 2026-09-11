@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports &amp; Intelligence | Dashboard</title>
+<link href="dashboard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+        .report-cat-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        .report-cat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .filter-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-pill.active, .filter-pill:hover {
+            background: rgba(59,130,246,0.15);
+            border-color: rgba(59,130,246,0.4);
+            color: #60A5FA;
+        }
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        .schedule-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .schedule-row:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.2);
+            transition: .3s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #3B82F6;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body>
+<!-- LEFT SIDEBAR -->
+<aside class="dash-sidebar slide-right-in" id="sidebar">
+<a class="sidebar-logo" href="../index.html">
+<img alt="Logo" src="../logo.webp" style="height: 32px; width: auto;"/>
+</a>
+<nav class="sidebar-nav">
+<a class="nav-item" href="procurement-dashboard.html"><i data-feather="pie-chart"></i> Dashboard</a>
+<a class="nav-item" href="purchase-orders.html"><i data-feather="file-text"></i> Purchase Orders</a>
+<a class="nav-item" href="suppliers.html"><i data-feather="users"></i> Suppliers</a>
+<a class="nav-item" href="contracts.html"><i data-feather="file"></i> Contracts</a>
+<a class="nav-item" href="spend-supplier-analytics.html"><i data-feather="trending-up"></i> Spend Analysis</a>
+<a class="nav-item active" href="reports.html"><i data-feather="bar-chart-2"></i> Reports</a>
+<div style="flex: 1;"></div>
+<a class="nav-item" href="settings.html"><i data-feather="settings"></i> Settings</a>
+<a class="nav-item" href="../login.html" onclick="return confirm('Are you sure you want to logout?');" style="color: #EF4444; margin-top: 8px;"><i data-feather="log-out"></i> Logout</a>
+</nav>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="dash-main">
+<!-- TOP HEADER -->
+<header class="dash-header stagger-1">
+<div class="header-left" style="display: flex; gap: 16px; align-items: center;">
+<button class="icon-btn menu-toggle" id="menuToggle"><i data-feather="menu"></i></button>
+<div class="header-title">
+<h1>Reports &amp; Intelligence</h1>
+<p>Generate, schedule, and export comprehensive procurement analytics.</p>
+</div>
+</div>
+<div class="header-actions">
+<button class="btn-primary" onclick="alert('Exporting full procurement intelligence report in PDF/XLSX...');" style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; font-size: 13px;">
+<i data-feather="download" style="width: 15px; height: 15px;"></i>
+<span>Export All Reports</span>
+</button>
+<button class="icon-btn" style="position: relative;">
+<i data-feather="bell"></i>
+<span style="position: absolute; top: 0; right: 2px; width: 8px; height: 8px; background: #EF4444; border-radius: 50%;"></span>
+</button>
+<div class="user-profile">PT</div>
+</div>
+</header>
+<!-- REPORTS CONTENT -->
+<div class="dash-content">
+<!-- SECTION 1: REPORT HIGHLIGHTS & KPIS -->
+<div class="kpi-grid stagger-2" style="margin-bottom: 28px;">
+<div class="kpi-card">
+<div class="kpi-header">
+<span class="kpi-title">Generated Reports</span>
+<i class="kpi-icon" data-feather="file-text" style="color: #3B82F6;"></i>
+</div>
+<div class="kpi-value">184</div>
+<div class="kpi-metric metric-up"><i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> +18 this month</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-header">
+<span class="kpi-title">Scheduled Pipelines</span>
+<i class="kpi-icon" data-feather="clock" style="color: #10B981;"></i>
+</div>
+<div class="kpi-value">12 Active</div>
+<div class="kpi-metric metric-neutral"><i data-feather="check" style="width: 14px; height: 14px;"></i> 100% on schedule</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-header">
+<span class="kpi-title">Compliance Score</span>
+<i class="kpi-icon" data-feather="shield-check" style="color: #8B5CF6;"></i>
+</div>
+<div class="kpi-value">99.1%</div>
+<div class="kpi-metric metric-up"><i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> +1.4% audit rating</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-header">
+<span class="kpi-title">Savings Identified</span>
+<i class="kpi-icon" data-feather="dollar-sign" style="color: #F59E0B;"></i>
+</div>
+<div class="kpi-value">$542K</div>
+<div class="kpi-metric metric-up"><i data-feather="trending-up" style="width: 14px; height: 14px;"></i> Actionable value</div>
+</div>
+</div>
+<!-- SECTION 2: REPORT CATALOG & GENERATOR -->
+<div class="dash-section stagger-3" style="margin-bottom: 28px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+<div>
+<h3 style="font-size: 17px; font-weight: 700; color: #FFFFFF; margin: 0 0 4px 0; display: flex; align-items: center; gap: 8px;">
+<i data-feather="grid" style="width: 18px; height: 18px; color: #3B82F6;"></i>
+                            Report Catalog &amp; Instant Generators
+                        </h3>
+<p style="font-size: 13px; color: var(--text-muted); margin: 0;">Select pre-built analytics templates to build customized reports.</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<button class="filter-pill active">All Categories</button>
+<button class="filter-pill">Financial</button>
+<button class="filter-pill">Suppliers</button>
+<button class="filter-pill">Contracts</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+<!-- CARD 1: SPEND BY CATEGORY -->
+<div class="report-cat-card">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; color: #3B82F6;"><i data-feather="pie-chart"></i></div>
+<span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(59,130,246,0.1); color: #60A5FA; font-weight: 600;">Monthly</span>
+</div>
+<h4 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px 0;">Spend &amp; Category Analysis</h4>
+<p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5;">Detailed cost center breakdown across hardware, logistics, services, and operational expenditure.</p>
+</div>
+<div style="display: flex; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);">
+<button class="btn-outline" onclick="alert('Generating Spend Report preview...');" style="flex: 1; font-size: 12px; padding: 8px;">Preview</button>
+<button class="btn-primary" onclick="alert('Downloading PDF report...');" style="flex: 1; font-size: 12px; padding: 8px;">Download PDF</button>
+</div>
+</div>
+<!-- CARD 2: SUPPLIER PERFORMANCE SCORECARD -->
+<div class="report-cat-card">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; color: #10B981;"><i data-feather="award"></i></div>
+<span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(16,185,129,0.1); color: #34D399; font-weight: 600;">Quarterly</span>
+</div>
+<h4 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px 0;">Supplier Performance Scorecard</h4>
+<p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5;">Fulfillment rate, SLA compliance, delivery turnaround times, and quality defect ratios.</p>
+</div>
+<div style="display: flex; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);">
+<button class="btn-outline" onclick="alert('Generating Supplier Scorecard preview...');" style="flex: 1; font-size: 12px; padding: 8px;">Preview</button>
+<button class="btn-primary" onclick="alert('Downloading Excel report...');" style="flex: 1; font-size: 12px; padding: 8px; background: #10B981;">Export XLSX</button>
+</div>
+</div>
+<!-- CARD 3: CONTRACT EXPIRATION & RISK AUDIT -->
+<div class="report-cat-card">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(245,158,11,0.15); display: flex; align-items: center; justify-content: center; color: #F59E0B;"><i data-feather="alert-triangle"></i></div>
+<span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(245,158,11,0.1); color: #FBBF24; font-weight: 600;">Weekly</span>
+</div>
+<h4 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px 0;">Contract Expirations &amp; Risk</h4>
+<p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5;">Upcoming renewals (30/60/90 days), price escalation clauses, and legal risk evaluations.</p>
+</div>
+<div style="display: flex; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);">
+<button class="btn-outline" onclick="alert('Generating Contract Risk preview...');" style="flex: 1; font-size: 12px; padding: 8px;">Preview</button>
+<button class="btn-primary" onclick="alert('Downloading PDF report...');" style="flex: 1; font-size: 12px; padding: 8px; background: #F59E0B;">Download PDF</button>
+</div>
+</div>
+<!-- CARD 4: PO LIFECYCLE & SLA CYCLE TIME -->
+<div class="report-cat-card">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(139,92,246,0.15); display: flex; align-items: center; justify-content: center; color: #8B5CF6;"><i data-feather="check-square"></i></div>
+<span style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(139,92,246,0.1); color: #A78BFA; font-weight: 600;">Real-time</span>
+</div>
+<h4 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin: 0 0 6px 0;">PO Cycle Time &amp; Approval SLA</h4>
+<p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5;">Average requisition-to-PO time, approval bottleneck analysis, and invoice matching accuracy.</p>
+</div>
+<div style="display: flex; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);">
+<button class="btn-outline" onclick="alert('Generating PO Cycle preview...');" style="flex: 1; font-size: 12px; padding: 8px;">Preview</button>
+<button class="btn-primary" onclick="alert('Downloading Excel report...');" style="flex: 1; font-size: 12px; padding: 8px; background: #8B5CF6;">Export XLSX</button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: VISUAL SPEND FORECAST & REALIZATION METRICS -->
+<div class="middle-grid stagger-4" style="margin-bottom: 28px;">
+<!-- SPEND FORECAST VS BUDGET -->
+<div class="dash-card">
+<div class="card-header">
+<span class="card-title">Spend Forecast vs Budget Allocation</span>
+<div class="chart-filters">
+<button class="chart-filter">Q1</button>
+<button class="chart-filter">Q2</button>
+<button class="chart-filter">Q3</button>
+<button class="chart-filter active">Full Year</button>
+</div>
+</div>
+<div class="chart-container" style="display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+<svg class="chart-svg" preserveaspectratio="none" viewbox="0 0 600 160">
+<defs>
+<lineargradient id="reportGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#3B82F6" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path class="chart-area" d="M0,160 L0,120 C80,110 140,70 220,80 C300,90 380,40 460,35 C520,30 580,20 600,15 L600,160 Z" fill="url(#reportGrad)"></path>
+<path class="chart-line" d="M0,120 C80,110 140,70 220,80 C300,90 380,40 460,35 C520,30 580,20 600,15" fill="none" stroke="#3B82F6" stroke-width="2"></path>
+</svg>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+<div>
+<div style="font-size: 11px; color: var(--text-muted);">Allocated Budget</div>
+<div style="font-size: 15px; font-weight: 700; color: #FFFFFF;">$3.20M</div>
+</div>
+<div>
+<div style="font-size: 11px; color: var(--text-muted);">Committed Spend</div>
+<div style="font-size: 15px; font-weight: 700; color: #3B82F6;">$2.42M (75.6%)</div>
+</div>
+<div>
+<div style="font-size: 11px; color: var(--text-muted);">Projected Variance</div>
+<div style="font-size: 15px; font-weight: 700; color: #10B981;">+$240K (Under)</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CATEGORY SPEND & SAVINGS PERFORMANCE -->
+<div class="dash-card">
+<div class="card-header">
+<span class="card-title">Category Savings Targets</span>
+<span style="font-size: 12px; color: #10B981; font-weight: 600;">88% On Target</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+<span style="color: #FFFFFF; font-weight: 500;">IT &amp; Hardware</span>
+<span style="color: #60A5FA;">$185K / $200K (92.5%)</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" style="width: 92.5%; background: #3B82F6;"></div>
+</div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+<span style="color: #FFFFFF; font-weight: 500;">Office Supplies &amp; Facilities</span>
+<span style="color: #34D399;">$78K / $80K (97.5%)</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" style="width: 97.5%; background: #10B981;"></div>
+</div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+<span style="color: #FFFFFF; font-weight: 500;">Logistics &amp; Freight</span>
+<span style="color: #FBBF24;">$142K / $170K (83.5%)</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" style="width: 83.5%; background: #F59E0B;"></div>
+</div>
+</div>
+<div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+<span style="color: #FFFFFF; font-weight: 500;">Professional Services</span>
+<span style="color: #A78BFA;">$137K / $175K (78.2%)</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" style="width: 78.2%; background: #8B5CF6;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 4: RECENT GENERATED REPORTS & EXPORT HISTORY -->
+<div class="dash-card stagger-5" style="margin-bottom: 28px;">
+<div class="card-header">
+<span class="card-title">Generated Report Archive</span>
+<button class="btn-outline" style="font-size: 12px; padding: 6px 12px;"><i data-feather="filter" style="width: 13px; margin-right: 4px;"></i> Filter Archive</button>
+</div>
+<div class="table-container">
+<table class="dash-table">
+<thead>
+<tr>
+<th>Report Title</th>
+<th>Category</th>
+<th>Period</th>
+<th>Generated By</th>
+<th>File Format</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-weight: 600; color: #FFFFFF;">Q3 Executive Spend Summary</td>
+<td>Financial Spend</td>
+<td>Jul - Sep 2026</td>
+<td>Finance Dept</td>
+<td><span class="badge" style="background: rgba(239,68,68,0.15); color: #FCA5A5;">PDF (2.4 MB)</span></td>
+<td><span class="badge badge-approved">Ready</span></td>
+<td><button class="icon-btn" onclick="alert('Downloading Q3 Executive Spend Summary PDF...');" title="Download"><i data-feather="download"></i></button></td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: #FFFFFF;">Annual Vendor SLA Scorecard</td>
+<td>Supplier Mgmt</td>
+<td>Jan - Aug 2026</td>
+<td>Sarah Mitchell</td>
+<td><span class="badge" style="background: rgba(16,185,129,0.15); color: #6EE7B7;">XLSX (4.1 MB)</span></td>
+<td><span class="badge badge-approved">Ready</span></td>
+<td><button class="icon-btn" onclick="alert('Downloading Vendor Scorecard XLSX...');" title="Download"><i data-feather="download"></i></button></td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: #FFFFFF;">Q4 Contract Expiry Audit</td>
+<td>Contracts</td>
+<td>Next 90 Days</td>
+<td>Legal &amp; Procurement</td>
+<td><span class="badge" style="background: rgba(239,68,68,0.15); color: #FCA5A5;">PDF (1.8 MB)</span></td>
+<td><span class="badge badge-approved">Ready</span></td>
+<td><button class="icon-btn" onclick="alert('Downloading Contract Expiry Audit PDF...');" title="Download"><i data-feather="download"></i></button></td>
+</tr>
+<tr>
+<td style="font-weight: 600; color: #FFFFFF;">Monthly PO Turnaround SLAs</td>
+<td>Operations</td>
+<td>August 2026</td>
+<td>System Automations</td>
+<td><span class="badge" style="background: rgba(59,130,246,0.15); color: #93C5FD;">CSV (840 KB)</span></td>
+<td><span class="badge badge-approved">Ready</span></td>
+<td><button class="icon-btn" onclick="alert('Downloading PO Turnaround SLAs CSV...');" title="Download"><i data-feather="download"></i></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- SECTION 5: AUTOMATED REPORT SCHEDULES -->
+<div class="dash-card stagger-6" style="margin-bottom: 28px;">
+<div class="card-header">
+<span class="card-title">Automated Scheduled Distributions</span>
+<button class="btn-primary" onclick="alert('New schedule wizard opened.');" style="font-size: 12px; padding: 6px 14px;">+ New Schedule</button>
+</div>
+<div>
+<div class="schedule-row">
+<div>
+<div style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">Weekly Executive Spend Digest</div>
+<div style="font-size: 12px; color: var(--text-muted);">Delivers every Monday at 08:00 AM â€¢ Recipients: 6 executives â€¢ PDF</div>
+</div>
+<div style="display: flex; align-items: center; gap: 16px;">
+<span class="badge" style="background: rgba(59,130,246,0.15); color: #60A5FA;">Weekly</span>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<div class="schedule-row">
+<div>
+<div style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">Monthly Vendor Risk &amp; Performance Pack</div>
+<div style="font-size: 12px; color: var(--text-muted);">Delivers on 1st of every month â€¢ Recipients: Procurement Team â€¢ XLSX</div>
+</div>
+<div style="display: flex; align-items: center; gap: 16px;">
+<span class="badge" style="background: rgba(16,185,129,0.15); color: #34D399;">Monthly</span>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<div class="schedule-row">
+<div>
+<div style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">Quarterly Compliance &amp; Audit Package</div>
+<div style="font-size: 12px; color: var(--text-muted);">Delivers end of quarter â€¢ Recipients: Internal Audit &amp; Legal â€¢ PDF + CSV</div>
+</div>
+<div style="display: flex; align-items: center; gap: 16px;">
+<span class="badge" style="background: rgba(245,158,11,0.15); color: #FBBF24;">Quarterly</span>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- FOOTER -->
+<footer style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<img alt="Logo" src="../logo.webp" style="height: 24px; width: auto; opacity: 0.7;"/>
+<span style="font-size: 13px; color: rgba(255,255,255,0.4);">Â© 2026. All rights reserved.</span>
+</div>
+<div style="display: flex; gap: 20px;">
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Privacy Policy</a>
+<a href="../404.html" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Terms</a>
+<a href="#" style="font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none;">Support</a>
+</div>
+</footer>
+</div>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>
+
