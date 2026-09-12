@@ -3446,36 +3446,62 @@ body.preloader-finished .hero-bottom-bar {
 .animate-float-delayed {
     animation: animateFloat 4s ease-in-out 2s infinite;
 }
-/* --- SECTION PADDING & COLOR UTILITIES --- */
-.section-pad {
-    padding: 80px 0;
+
+
+/* --- ENHANCED ANIMATIONS FOR HEADINGS AND PASSAGES --- */
+.anim-section-heading {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media (max-width: 768px) {
-    .section-pad {
-        padding: 50px 0;
-    }
+
+.anim-section-passage {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
 }
-.bg-shade-1 { background-color: var(--bg-sec-1); }
-.bg-shade-2 { background-color: var(--bg-sec-2); }
-.bg-shade-3 { background-color: var(--bg-sec-3); }
-.bg-shade-4 { background-color: var(--bg-sec-4); }
-.bg-shade-5 { background-color: var(--bg-sec-5); }
-.bg-shade-6 { background-color: var(--bg-sec-6); }
-.bg-shade-7 { background-color: var(--bg-sec-7); }
-.bg-shade-8 { background-color: var(--bg-sec-8); }
-/* --- GLOBAL SECTION GRADES --- */
-.section-pad {
-    padding: 60px 24px;
+
+.anim-section-heading.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
-@media (max-width: 768px) {
-    .section-pad {
-        padding: 40px 20px;
-    }
+
+.anim-section-passage.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
-.bg-grad-1 { background: linear-gradient(180deg, #050A1F 0%, #071536 100%); }
-.bg-grad-2 { background: linear-gradient(180deg, #081A46 0%, #0C245C 100%); }
-.bg-grad-3 { background: linear-gradient(180deg, #0A2458 0%, #0D3475 100%); }
-.bg-grad-4 { background: linear-gradient(180deg, #071735 0%, #091F4A 100%); }
-.bg-grad-5 { background: linear-gradient(180deg, #0A1E4B 0%, #0D2C65 100%); }
-.bg-grad-6 { background: linear-gradient(180deg, #060D27 0%, #08183B 100%); }
-.bg-grad-7 { background: linear-gradient(180deg, #060B22 0%, #081033 100%); }
+
+html, body { overflow-x: hidden !important; max-width: 100vw; }
+
+
+.hero-section { padding-top: 100px !important; }
+
+
+body > section:first-of-type { padding-top: 100px !important; }
+
+
+.site-footer, .clean-site-footer { text-align: center !important; }
+.site-footer .footer-social-row { justify-content: center !important; }
+.site-footer .footer-logo, .site-footer img { margin: 0 auto !important; }
+.site-footer .footer-bottom, .clean-site-footer .footer-bottom, .clean-site-footer .legal-links { justify-content: center !important; flex-direction: column; align-items: center !important; }
+.clean-site-footer .footer-bottom { text-align: center !important; }
+
+
+.page-container > section:first-of-type, .hero-section { padding-top: 110px !important; }
+
+
+.hero-content { margin-top: 80px !important; }
+@media (max-width: 900px) { .hero-content { margin-top: 90px !important; } }
+
+
+@media (max-width: 768px) { h1, h2, h3, h4, h5, h6, p, .anim-paragraph, .wipe-text { padding-left: 20px !important; padding-right: 20px !important; } }
+
+
+.content-wrapper, .hero-content, .testimonials-container, .faq-section, .process-section, .clean-footer-container, .metrics-section > div { padding-left: 24px !important; padding-right: 24px !important; box-sizing: border-box; }
+
+
+.content-container { max-width: 1240px; margin: 0 auto; padding-left: 24px !important; padding-right: 24px !important; box-sizing: border-box; width: 100%; }
+
+
+.cta-support-text.aos-animate, .cta-sub-line.aos-animate, .cta-btn-wrapper.aos-animate { clip-path: inset(0 0 0 0) !important; opacity: 1 !important; transform: none !important; }
+

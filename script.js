@@ -984,3 +984,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.3 });
 
     metricCards.forEach(card => metricObserver.observe(card));
+
+
+    // --- ADVANCED SECTION STAGGERED ANIMATIONS ---
+    const allSections = document.querySelectorAll('section, .content-container, .grid');
+    allSections.forEach(section => {
+        const headings = section.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const passages = section.querySelectorAll('p, li, .body-text');
+        
+        // Only apply if they exist in the section
+        if (headings.length > 0 || passages.length > 0) {
+            headings.forEach(h => h.classList.add('anim-section-heading'));
+            passages.forEach(p => p.classList.add('anim-section-passage'));
+        }
+    });
+
+    const advancedSectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                
+                // First animate headings
+                const headings = target.querySelectorAll('.anim-section-heading');
+                headings.forEach((h, index) => {
+                    setTimeout(() => h.classList.add('revealed'), index * 100);
+                });
+                
+                // Then animate passages after headings
+                const passages = target.querySelectorAll('.anim-section-passage');
+                passages.forEach((p, index) => {
+                    setTimeout(() => p.classList.add('revealed'), 300 + (index * 50));
+                });
+                
+                advancedSectionObserver.unobserve(target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    allSections.forEach(section => {
+        advancedSectionObserver.observe(section);
+    });
