@@ -42,7 +42,7 @@
         .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; padding: 8px; }
         .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
         @media (max-width: 900px) {
-            .sidebar { position: fixed; height: 100vh; transform: translateX(-100%); box-shadow: 4px 0 15px rgba(0,0,0,0.5); }
+            .sidebar { position: fixed; height: 100vh; transform: translateX(-100%); box-shadow: 4px 0 15px rgba(0,0,0,0.5); width: 100%; }
             .sidebar.open { transform: translateX(0); }
             .sidebar-overlay.show { display: block; opacity: 1; pointer-events: all; }
             .content { padding: 20px 16px; width: 100%; }
@@ -60,8 +60,8 @@
         </div>
         
         <div class="mt-4 mb-6 px-3 text-xs font-bold text-blue-500 uppercase tracking-widest bg-blue-900/10 py-2 rounded mx-2 text-center border border-blue-500/20 shadow-sm" data-aos="fade-right">
-            Admin
-        </div>
+        Admin Dashboard
+    </div>
         
         <div data-aos="fade-right" data-aos-delay="100">
             <div class="nav-section">Overview</div>
@@ -85,14 +85,42 @@
         </div>
     </div>
     <div class="content flex flex-col min-h-full">
-        <div class="flex justify-between items-center mb-6 md:hidden" data-aos="fade-down">
+        <!-- Sticky Header Wrapper -->
+    <div class="sticky top-0 z-40 bg-[#0b1120]/95 backdrop-blur-md -mt-5 md:-mt-8 -mx-4 md:-mx-10 px-4 md:px-10 pt-5 md:pt-8 pb-4 mb-6 md:mb-8 border-b border-white/5 shadow-xl">
+        <div class="flex justify-between items-center mb-4 md:hidden" data-aos="fade-down">
             <a href="../index.html"><img src="../logo.webp" alt="Stackly" style="height: 45px; width: auto;" /></a>
             <button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.add('open'); document.querySelector('.sidebar-overlay').classList.add('show');"><i class="fa fa-bars text-xl"></i></button>
         </div>
-        <div class="mb-8" data-aos="fade-down" data-aos-delay="50">
-            <h1 class="text-2xl font-bold mb-1">Spend Analysis</h1>
-            <p class="text-sm text-gray-400">Deep dive into spend, savings, and performance data.</p>
+        <!-- Mobile Title Only -->
+<div class="md:hidden" data-aos="fade-down" data-aos-delay="50">
+    <h1 class="text-2xl font-bold mb-1">Spend Analysis</h1>
+    <p class="text-sm text-gray-400">Deep dive into spend, savings, and performance data.</p>
+</div>
+
+<!-- Desktop Header -->
+<div class="hidden md:flex justify-between items-center w-full " data-aos="fade-down" data-aos-delay="50">
+    <div>
+        <h1 class="text-2xl font-bold mb-1">Spend Analysis</h1>
+        <p class="text-sm text-gray-400">Deep dive into spend, savings, and performance data.</p>
+    </div>
+    <div class="flex items-center gap-6">
+        <div class="relative cursor-pointer hover:text-white text-gray-400 transition" onclick="window.location.href='../404.html'">
+              <i class="fa fa-search text-xl"></i>
+          </div>
+        <div class="relative cursor-pointer hover:text-white text-gray-400 transition" onclick="window.location.href='../404.html'">
+              <i class="fa fa-bell text-xl"></i>
+              <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </div>
+        <div class="flex items-center gap-3 pl-4 border-l border-white/10 cursor-pointer">
+            <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold border border-blue-500/30" id="user-avatar">AD</div>
+            <div class="text-sm">
+                <p class="font-bold text-white leading-none mb-1" id="user-name">Stackly User</p>
+                <p class="text-gray-400 text-xs leading-none" id="user-email">user@stackly.com</p>
+            </div>
         </div>
+    </div>
+</div>
+
         <div class="flex-1">
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -141,18 +169,19 @@
         Chart.defaults.font.family = 'Inter';
         
         const email = localStorage.getItem("stackly_user_email");
-        if (email) {
-            const namePart = email.split('@')[0];
-            let displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-            displayName = displayName.replace(/\./g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            document.getElementById('user-name').innerText = displayName;
-            let initials = displayName.substring(0, 2);
-            const nameSplit = displayName.split(' ');
-            if (nameSplit.length > 1) { initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0); }
-            document.getElementById('user-avatar').innerText = initials;
-        }
-        
-        new Chart(document.getElementById('catChart'), { type: 'doughnut', data: { labels: ['Technology', 'Operations', 'Logistics', 'Marketing'], datasets: [{ data: [45, 25, 20, 10], backgroundColor: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B'], borderWidth: 0 }] } }); new Chart(document.getElementById('savingsChart'), { type: 'bar', data: { labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{ label: 'Savings', data: [45, 60, 80, 120], backgroundColor: '#10B981' }] } });
+          if (email) {
+              const namePart = email.split('@')[0];
+              let displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+              displayName = displayName.replace(/\./g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+              if(document.getElementById('user-name')) document.getElementById('user-name').innerText = displayName;
+              if(document.getElementById('user-email')) document.getElementById('user-email').innerText = email;
+              let initials = displayName.substring(0, 2);
+              const nameSplit = displayName.split(' ');
+              if (nameSplit.length > 1) { initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0); }
+              if(document.getElementById('user-avatar')) document.getElementById('user-avatar').innerText = initials;
+          }
+          
+          new Chart(document.getElementById('catChart'), { type: 'doughnut', data: { labels: ['Technology', 'Operations', 'Logistics', 'Marketing'], datasets: [{ data: [45, 25, 20, 10], backgroundColor: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B'], borderWidth: 0 }] } }); new Chart(document.getElementById('savingsChart'), { type: 'bar', data: { labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{ label: 'Savings', data: [45, 60, 80, 120], backgroundColor: '#10B981' }] } });
     </script>
 </body>
 </html>

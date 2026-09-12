@@ -894,15 +894,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // Fallback: forcefully reveal images after 2.5 seconds just in case IntersectionObserver fails
+    
+    // Dedicated Testimonials Split Observer
+    const testimGrid = document.getElementById('testimonials-grid');
+    if (testimGrid) {
+        const tObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger the fan-out animation when the grid is well in view
+                    entry.target.classList.add('cards-split');
+                }
+            });
+        }, { rootMargin: '-25% 0px -25% 0px', threshold: 0 });
+        tObserver.observe(testimGrid);
+    }
+// Fallback: forcefully reveal images after 2.5 seconds just in case IntersectionObserver fails
     setTimeout(() => {
-        document.querySelectorAll('.clip-reveal-image').forEach(img => {
-            img.classList.add('revealed-clip');
-        });
-        document.querySelectorAll('.anim-scale-in').forEach(wrap => {
-            wrap.classList.add('wiped');
-        });
-    }, 2500);
+          document.querySelectorAll('.clip-reveal-image').forEach(img => {
+              img.classList.add('revealed-clip');
+          });
+          document.querySelectorAll('.anim-scale-in').forEach(wrap => {
+              wrap.classList.add('wiped');
+          });
+          const tGrid = document.getElementById('testimonials-grid');
+          if (tGrid) tGrid.classList.add('cards-split');
+      }, 2500);
 
 });
 
@@ -936,7 +952,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateLine(); // Initial call
                 }
             });
-        }, { threshold: 0.1 });
+        }, { rootMargin: '-25% 0px -25% 0px', threshold: 0 });
         processObserver.observe(processSection);
 
         // Animate steps coming in
@@ -1024,3 +1040,51 @@ document.addEventListener('DOMContentLoaded', () => {
     allSections.forEach(section => {
         advancedSectionObserver.observe(section);
     });
+
+
+// TESTIMONIALS AUTO-LOOP AND EXPAND LOGIC
+let testimIndex = 0;
+let testimInterval;
+let isPaused = false;
+
+function initTestimonials() {
+    const cards = document.querySelectorAll('.testimonial-card');
+    if (!cards.length) return;
+    
+    function updateCards() {
+        cards.forEach((card, i) => {
+            card.classList.remove('t-active', 't-next', 't-prev', 'expanded');
+            if (i === testimIndex) {
+                card.classList.add('t-active');
+            } else if (i === (testimIndex + 1) % cards.length) {
+                card.classList.add('t-next');
+            } else {
+                card.classList.add('t-prev');
+            }
+        });
+    }
+    
+    function nextTestim() {
+        if (!isPaused) {
+            testimIndex = (testimIndex + 1) % cards.length;
+            updateCards();
+        }
+    }
+    
+    updateCards();
+    testimInterval = setInterval(nextTestim, 3500); // 3.5 seconds gap
+}
+
+window.toggleExpand = function(card) {
+    if (card.classList.contains('expanded')) {
+        card.classList.remove('expanded');
+        isPaused = false;
+    } else {
+        // Remove expanded from all
+        document.querySelectorAll('.testimonial-card').forEach(c => c.classList.remove('expanded'));
+        card.classList.add('expanded');
+        isPaused = true; // Pause loop while reading
+    }
+};
+
+document.addEventListener('DOMContentLoaded', initTestimonials);
