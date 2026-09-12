@@ -3464,11 +3464,10 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
 body > section:first-of-type { padding-top: 100px !important; }
 
 
-.site-footer, .clean-site-footer { text-align: center !important; }
-.site-footer .footer-social-row { justify-content: center !important; }
-.site-footer .footer-logo, .site-footer img { margin: 0 auto !important; }
-.site-footer .footer-bottom, .clean-site-footer .footer-bottom, .clean-site-footer .legal-links { justify-content: center !important; flex-direction: column; align-items: center !important; }
-.clean-site-footer .footer-bottom { text-align: center !important; }
+
+
+
+
 
 
 .page-container > section:first-of-type, .hero-section { padding-top: 110px !important; }
@@ -4014,4 +4013,63 @@ body > section:first-of-type { padding-top: 100px !important; }
 .footer-bottom {
     margin-top: 15px !important;
     padding-top: 15px !important;
+}
+
+.clean-footer-container {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    width: 100%;
+}
+.nav-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+.navbar {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+@media (max-width: 1288px) {
+    .nav-inner, .clean-footer-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+
+/* ALIGNMENT FIX */
+.navbar {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.nav-inner {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.clean-footer-container {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+    width: 100%;
+}
+.footer-logo {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 !important;
+    padding: 0 !important;
 }
