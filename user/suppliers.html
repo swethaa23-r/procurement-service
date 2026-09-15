@@ -12,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { background-color: #0b1120; color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; margin: 0; }
         .sidebar { width: 260px; background-color: #020617; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; padding: 24px 16px; overflow-y: auto; z-index: 10; }
-        .content { flex: 1; padding: 32px 40px; overflow-y: auto; scroll-behavior: smooth; position: relative; }
+        .content { flex: 1; padding: 0px 40px 32px 40px; overflow-y: auto; scroll-behavior: smooth; position: relative; }
         .nav-section { color: #64748b; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; margin: 24px 0 8px 12px; text-transform: uppercase; }
         .nav-link { padding: 10px 12px; color: #94a3b8; text-decoration: none; border-radius: 8px; margin-bottom: 4px; transition: 0.2s; display: flex; align-items: center; font-size: 0.875rem; font-weight: 500; }
         .nav-link i { width: 24px; font-size: 1.1rem; }
@@ -41,12 +41,12 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="flex items-center gap-3 px-3 mb-8" data-aos="fade-right">
+        <div class="flex items-center gap-3 px-3 mb-8">
             <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-lg"><i class="fa fa-bolt"></i></div>
             <h2 class="text-xl font-bold tracking-wide">Stackly</h2>
         </div>
         
-        <div data-aos="fade-right" data-aos-delay="100">
+        <div>
             <div class="nav-section">Overview</div>
             <a href="index.html" class="nav-link "><i class="fa fa-th-large"></i> User Overview</a>
 
@@ -61,14 +61,14 @@
         
         <div style="flex: 1;"></div>
         
-        <div data-aos="fade-up">
+        <div>
             <div class="nav-section">System</div>
             <a href="#" class="nav-link"><i class="fa fa-cog"></i> Settings</a>
             <a href="../login.html" class="nav-link text-red-400 hover:text-red-300 hover:bg-red-900/10"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
     <div class="content">
-        <div class="flex justify-between items-center mb-8" data-aos="fade-down">
+        <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-2xl font-bold mb-1">Suppliers</h1>
                 <p class="text-sm text-gray-400">Monitor supplier health, compliance, and performance metrics.</p>
@@ -87,11 +87,11 @@
         </div>
         
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="card !mb-0" data-aos="fade-up"><div class="kpi-title">Active Suppliers <i class="fa fa-user-check"></i></div><p class="kpi-value">342</p><p class="kpi-trend"><span class="trend-up">&uarr; 12</span> onboarded this month</p></div>
-                    <div class="card !mb-0" data-aos="fade-up" data-aos-delay="100"><div class="kpi-title">Compliance Score <i class="fa fa-shield-alt"></i></div><p class="kpi-value">94%</p><p class="kpi-trend"><span class="trend-up">&uarr; 2%</span> improvement</p></div>
-                    <div class="card !mb-0" data-aos="fade-up" data-aos-delay="200"><div class="kpi-title">High Risk Suppliers <i class="fa fa-exclamation-triangle text-red-500"></i></div><p class="kpi-value">8</p><p class="kpi-trend text-red-400">Requires immediate review</p></div>
+                    <div class="card !mb-0"><div class="kpi-title">Active Suppliers <i class="fa fa-user-check"></i></div><p class="kpi-value">342</p><p class="kpi-trend"><span class="trend-up">&uarr; 12</span> onboarded this month</p></div>
+                    <div class="card !mb-0"><div class="kpi-title">Compliance Score <i class="fa fa-shield-alt"></i></div><p class="kpi-value">94%</p><p class="kpi-trend"><span class="trend-up">&uarr; 2%</span> improvement</p></div>
+                    <div class="card !mb-0"><div class="kpi-title">High Risk Suppliers <i class="fa fa-exclamation-triangle text-red-500"></i></div><p class="kpi-value">8</p><p class="kpi-trend text-red-400">Requires immediate review</p></div>
                 </div>
-                <div class="card" data-aos="fade-up">
+                <div class="card">
                     <h3 class="text-sm font-bold text-white mb-4">Top Performing Suppliers</h3>
                     <table><thead><tr><th>Supplier Name</th><th>Category</th><th>Spend (YTD)</th><th>Rating</th></tr></thead>
                     <tbody>

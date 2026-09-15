@@ -12,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { background-color: #0b1120; color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; margin: 0; }
         .sidebar { width: 260px; background-color: #020617; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; padding: 24px 16px; overflow-y: auto; z-index: 10; }
-        .content { flex: 1; padding: 32px 40px; overflow-y: auto; scroll-behavior: smooth; position: relative; }
+        .content { flex: 1; padding: 0px 40px 32px 40px; overflow-y: auto; scroll-behavior: smooth; position: relative; }
         .nav-section { color: #64748b; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; margin: 24px 0 8px 12px; text-transform: uppercase; }
         .nav-link { padding: 10px 12px; color: #94a3b8; text-decoration: none; border-radius: 8px; margin-bottom: 4px; transition: 0.2s; display: flex; align-items: center; font-size: 0.875rem; font-weight: 500; }
         .nav-link i { width: 24px; font-size: 1.1rem; }
@@ -41,12 +41,12 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="flex items-center gap-3 px-3 mb-8" data-aos="fade-right">
+        <div class="flex items-center gap-3 px-3 mb-8">
             <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-lg"><i class="fa fa-bolt"></i></div>
             <h2 class="text-xl font-bold tracking-wide">Stackly</h2>
         </div>
         
-        <div data-aos="fade-right" data-aos-delay="100">
+        <div>
             <div class="nav-section">My Workspace</div>
             <a href="index.html" class="nav-link "><i class="fa fa-home"></i> My Dashboard</a>
 <a href="my_requests.html" class="nav-link "><i class="fa fa-paper-plane"></i> My Requests</a>
@@ -61,12 +61,12 @@
         
         <div style="flex: 1;"></div>
         
-        <div data-aos="fade-up">
+        <div>
             <a href="../login.html" class="nav-link text-red-400 hover:text-red-300 hover:bg-red-900/10"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
     <div class="content">
-        <div class="flex justify-between items-center mb-8" data-aos="fade-down">
+        <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-2xl font-bold mb-1">My Profile</h1>
                 <p class="text-sm text-gray-400">Manage your personal details and preferences.</p>
@@ -85,7 +85,7 @@
         </div>
         
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="card text-center" data-aos="fade-right">
+                <div class="card text-center">
                     <div class="w-24 h-24 rounded-full bg-blue-600 mx-auto flex items-center justify-center text-3xl font-bold mb-4 shadow-[0_0_20px_rgba(59,130,246,0.5)]">MC</div>
                     <h2 class="text-2xl font-bold">Mike Chen</h2>
                     <p class="text-blue-400 text-sm mb-4">Marketing Lead</p>
@@ -96,7 +96,7 @@
                         <p><i class="fa fa-calendar-alt w-6 text-center text-gray-500"></i> Joined Mar 2023</p>
                     </div>
                 </div>
-                <div class="card lg:col-span-2" data-aos="fade-left">
+                <div class="card lg:col-span-2">
                     <h3 class="text-sm font-bold text-white mb-6">Edit Details</h3>
                     <form class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
