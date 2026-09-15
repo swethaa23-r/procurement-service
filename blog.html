@@ -7,6 +7,7 @@
 <title>Blog | Stackly</title>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <!-- AOS Animation Library for interactivity -->
@@ -220,6 +221,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 </head>
+<body class="relative overflow-x-hidden">
 <header class="navbar" id="navbar">
 <div class="nav-inner">
     <a class="logo" href="index.html">
@@ -243,7 +245,6 @@
     </button>
 </div>
 </header>
-<body class="relative">
 <!-- CONTENT PRELOADER -->
 <div id="preloader" class="preloader">
     <div class="preloader-bg-particles"></div>
@@ -299,8 +300,8 @@
 <div class="relative w-full rounded-2xl overflow-hidden border border-white/5 h-[450px] md:h-[500px]" data-aos="fade-up">
 <img alt="Blog Hero" class="absolute inset-0 w-full h-full object-cover opacity-50" src="images/blog_hero.webp"/>
 <div class="absolute inset-0 bg-black/40"></div>
-<div class="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
-    <h1 class="text-3xl md:text-5xl font-bold text-white leading-[1.2] tracking-tight mb-6 max-w-2xl" data-aos="fade-up" data-aos-delay="100">Ideas for smarter<br/>business decisions</h1>
+<div class="absolute inset-0 flex flex-col justify-center items-start md:items-center text-left md:text-center p-8 z-10">
+    <h1 class="text-3xl md:text-5xl font-bold text-white leading-[1.2] tracking-tight mb-6 max-w-2xl" data-aos="fade-up" data-aos-delay="100">Ideas for smarter business decisions</h1>
     <p class="text-sm md:text-base text-white/90 leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">Ideas, strategies, and practical perspectives for making smarter purchasing decisions, strengthening operations, and creating greater value across your organization.</p>
 </div>
 </div>
@@ -314,7 +315,7 @@
       <img src="images/blog_article_1.webp" class="w-full h-[240px] object-cover group-hover:scale-105 transition-transform duration-700" alt="Article Image" />
       <div class="absolute inset-0 bg-gradient-to-t from-[#020512] to-transparent opacity-60"></div>
   </div>
-  <h3 class="text-[22px] font-bold text-white leading-snug group-hover:text-blue-400 transition-colors">The New Way Businesses Think<br/>About Buying</h3>
+  <h3 class="text-[22px] font-bold text-white leading-snug group-hover:text-blue-400 transition-colors">The New Way Businesses Think <br class="hidden md:block"/> About Buying</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">Business purchasing has changed. Companies are looking beyond immediate costs and considering resilience, efficiency, quality, relationships, and long-term value.</p>
 <p class="text-[14px] text-white/60 leading-relaxed">Discover how a more strategic approach can help organizations make confident decisions while adapting to increasingly complex markets.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
@@ -324,7 +325,7 @@
       <img src="images/blog_article_2.webp" class="w-full h-[240px] object-cover group-hover:scale-105 transition-transform duration-700" alt="Article Image" />
       <div class="absolute inset-0 bg-gradient-to-t from-[#020512] to-transparent opacity-60"></div>
   </div>
-  <h3 class="text-[22px] font-bold text-white leading-snug group-hover:text-blue-400 transition-colors">Building Supplier Relationships<br/>That Last</h3>
+  <h3 class="text-[22px] font-bold text-white leading-snug group-hover:text-blue-400 transition-colors">Building Supplier Relationships <br class="hidden md:block"/> That Last</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">Strong supplier relationships don't happen by accident. They are built through transparency, communication, shared expectations, and consistent performance.</p>
 <p class="text-[14px] text-white/60 leading-relaxed">Learn how organizations can create partnerships that support reliability, flexibility, and long-term business growth.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
@@ -337,7 +338,7 @@
 <!-- Row 1 -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
 <div class="flex flex-col gap-5 order-2 md:order-1" data-aos="fade-right">
-<h3 class="text-[22px] font-bold text-white leading-snug">Is the Lowest Price Really the<br/>Best Deal?</h3>
+<h3 class="text-[22px] font-bold text-white leading-snug">Is the Lowest Price Really the <br class="hidden md:block"/> Best Deal?</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">A cheaper option can sometimes create higher costs later. Explore the factors businesses should consider when evaluating the true value of a purchase.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
 </div>
@@ -353,7 +354,7 @@
 <img alt="Workflows" class="w-full aspect-[4/3] object-cover rounded-xl shadow-2xl border border-white/5 group-hover:scale-[1.02] transition-transform duration-700" onerror="this.src='images/blog_hero.webp'" src="images/blog_workflows.webp"/>
 </div>
 <div class="flex flex-col gap-5" data-aos="fade-left">
-<h3 class="text-[22px] font-bold text-white leading-snug">Creating Workflows That<br/>Actually Work</h3>
+<h3 class="text-[22px] font-bold text-white leading-snug">Creating Workflows That <br class="hidden md:block"/> Actually Work</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">Unnecessary approvals, disconnected information, and manual tasks slow teams down. Discover simple ways to create smoother processes and improve everyday operations.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
 </div>
@@ -361,7 +362,7 @@
 <!-- Row 3 -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
 <div class="flex flex-col gap-5 order-2 md:order-1" data-aos="fade-right">
-<h3 class="text-[22px] font-bold text-white leading-snug">Turning Business Data Into<br/>Better Decisions</h3>
+<h3 class="text-[22px] font-bold text-white leading-snug">Turning Business Data Into <br class="hidden md:block"/> Better Decisions</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">Numbers can reveal more than what was spent. Learn how analyzing purchasing patterns and supplier activity can uncover opportunities that might otherwise remain hidden.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
 </div>
@@ -377,7 +378,7 @@
 <img alt="Resilient Network" class="w-full aspect-[4/3] object-cover rounded-xl shadow-2xl border border-white/5 group-hover:scale-[1.02] transition-transform duration-700" onerror="this.src='images/blog_hero.webp'" src="images/blog_network.webp"/>
 </div>
 <div class="flex flex-col gap-5" data-aos="fade-left">
-<h3 class="text-[22px] font-bold text-white leading-snug">How to Build a More Resilient<br/>Supply Network</h3>
+<h3 class="text-[22px] font-bold text-white leading-snug">How to Build a More Resilient <br class="hidden md:block"/> Supply Network</h3>
 <p class="text-[14px] text-white/60 leading-relaxed">Unexpected changes can affect availability, costs, timelines, and business continuity. Explore practical ways to prepare for disruption and create greater flexibility.</p>
 <a class="text-[12px] text-white/40 hover:text-white transition-colors mt-2 flex items-center gap-1 group w-max" href="404.html">Read Article <span class="group-hover:translate-x-1 transition-transform">-&gt;</span></a>
 </div>
@@ -409,50 +410,7 @@
             easing: 'ease-out-cubic'
         });
     </script>
-<script>
-(function() {
-    var msgs = document.querySelectorAll('.pl-message');
-    var bar = document.querySelector('.pl-progress-bar');
-    var idx = 0;
-    var msgInterval = setInterval(function() {
-        if(msgs[idx]) msgs[idx].classList.remove('active');
-        idx++;
-        if(idx < msgs.length) { msgs[idx].classList.add('active'); }
-        if(idx >= msgs.length) clearInterval(msgInterval);
-    }, 500);
-    if(bar) { bar.style.transition='width 1.8s ease'; setTimeout(function(){ bar.style.width='100%'; },100); }
-    window.addEventListener('load', function() {
-        setTimeout(function(){
-            var pre = document.getElementById('preloader');
-            if(pre){ pre.classList.add('loaded'); }
-            document.body.classList.add('preloader-finished');
-        }, 1900);
-    });
-})();
-</script>
-<script>
-// Sticky navbar - adds scrolled class, never hides
-(function() {
-    var navbar = document.getElementById('navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 20) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }, { passive: true });
-    // Hamburger toggle
-    var btn = document.getElementById('hamburger-btn');
-    var menu = document.getElementById('nav-menu-wrapper');
-    if (btn && menu) {
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            menu.classList.toggle('open');
-        });
-    }
-})();
-</script>
+<script src="script.js"></script>
 </body>
 <footer class="border-t border-white/10 pt-8 pb-8 mt-12 relative z-10" id="contact" style="background: rgba(4, 7, 22, 0.6); backdrop-filter: blur(10px);">
   <div class="w-full px-6" style="max-width: 1240px; margin: 0 auto; box-sizing: border-box;">

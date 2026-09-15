@@ -160,7 +160,7 @@
 <div class="glow-bg-radial"></div>
 <div class="content-wrapper">
 <div class="text-left-block">
-<h2 class="wipe-text">Procurement That Does<br/>More Than Save Money</h2>
+<h2 class="wipe-text">Procurement That Does <br class="hidden md:block"/> More Than Save Money</h2>
 <p class="sec-anim-desc">We move beyond basic cost-cutting. By combining strategic expertise, supplier intelligence, and disciplined spend analysis, we help organizations make confident purchasing decisions that drive measurable, long-term business impact.</p>
 <div class="stats-row sec-anim-desc">
 <div class="stat-item">
@@ -400,7 +400,7 @@
 <img alt="ROI Growth" class="dollar-img" src="images/roi-growth.webp" style="width: 100%; height: 100%; min-height: 450px; border-radius: 16px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.6); transform: scale(1.05);"/>
 </div>
 <div class="cta-text-side" style="flex: 1;">
-<h2 style="font-size: 38px; font-weight: 700; color: #FFF; margin-bottom: 24px; line-height: 1.2;">Turn Every Purchase<br/>Into Business Value</h2>
+<h2 style="font-size: 38px; font-weight: 700; color: #FFF; margin-bottom: 24px; line-height: 1.2;">Turn Every Purchase <br class="hidden md:block"/> Into Business Value</h2>
 <p style="font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 16px;">Every supplier you choose affects something beyond the invoice. It affects your customers. Your employee. Your timelines. Your reputation. And ultimately, the future you're trying to build.</p>
 <p style="font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 16px;">That's why we don't see procurement as simply buying products or negotiating prices. We see it as protecting the decisions that keep your business moving.</p>
 <p style="font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 24px;">We bring clarity to complexity, discipline to spending, and people to the process +” so you can move forward knowing that every important purchase is working toward something bigger.</p>
@@ -800,50 +800,7 @@
 </footer>
 </div>
 <script src="script.js"></script>
-<script>
-(function() {
-    var msgs = document.querySelectorAll('.pl-message');
-    var bar = document.querySelector('.pl-progress-bar');
-    var idx = 0;
-    var msgInterval = setInterval(function() {
-        if(msgs[idx]) msgs[idx].classList.remove('active');
-        idx++;
-        if(idx < msgs.length) { msgs[idx].classList.add('active'); }
-        if(idx >= msgs.length) clearInterval(msgInterval);
-    }, 500);
-    if(bar) { bar.style.transition='width 1.8s ease'; setTimeout(function(){ bar.style.width='100%'; },100); }
-    window.addEventListener('load', function() {
-        setTimeout(function(){
-            var pre = document.getElementById('preloader');
-            if(pre){ pre.classList.add('loaded'); }
-            document.body.classList.add('preloader-finished');
-        }, 1900);
-    });
-})();
-</script>
-<script>
-// Sticky navbar - adds scrolled class, never hides
-(function() {
-    var navbar = document.getElementById('navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 20) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }, { passive: true });
-    // Hamburger toggle
-    var btn = document.getElementById('hamburger-btn');
-    var menu = document.getElementById('nav-menu-wrapper');
-    if (btn && menu) {
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            menu.classList.toggle('open');
-        });
-    }
-})();
-</script>
+
 </body>
 </html>
 

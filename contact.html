@@ -7,6 +7,7 @@
 <title>Contact | Stackly</title>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <!-- AOS Animation Library for interactivity -->
@@ -220,6 +221,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
 </head>
+<body class="relative preloader-finished overflow-x-hidden">
 <header class="navbar" id="navbar">
 <div class="nav-inner">
     <a class="logo" href="index.html">
@@ -243,7 +245,6 @@
     </button>
 </div>
 </header>
-<body class="relative">
 <!-- CONTENT PRELOADER -->
 <div id="preloader" class="preloader">
     <div class="preloader-bg-particles"></div>
@@ -306,9 +307,7 @@
                 </div>
                 
                 <h1 class="text-[3rem] md:text-[4rem] font-bold text-white leading-tight mb-6">
-                    Let's Create<br>
-                    Something <span class="text-[#3B82F6]">Exceptional</span><br>
-                    Together
+                    Let's Create <br class="hidden md:block"/> Something <span class="text-[#3B82F6]">Exceptional</span> <br class="hidden md:block"/> Together
                 </h1>
                 
                 <p class="text-gray-400 text-base leading-relaxed max-w-md mb-10">
@@ -479,15 +478,27 @@
                     
                     <h3 class="text-2xl font-bold text-white mb-8 relative z-10">Send a Message</h3>
                     
-                    <form onsubmit="event.preventDefault(); window.location.href='404.html';" class="flex flex-col gap-6 relative z-10">
+                                        <form id="contactForm" onsubmit="return validateContactForm(event)" class="flex flex-col gap-6 relative z-10">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" required placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
-                            <input type="email" required placeholder="Your Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
+                            <div>
+                                <input type="text" id="cName" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
+                                <span id="errName" class="text-red-400 text-xs hidden mt-1 block">Please enter your name.</span>
+                            </div>
+                            <div>
+                                <input type="email" id="cEmail" placeholder="Your Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
+                                <span id="errEmail" class="text-red-400 text-xs hidden mt-1 block">Please enter a valid email address.</span>
+                            </div>
                         </div>
                         
-                        <input type="text" required placeholder="Subject" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
+                        <div>
+                            <input type="text" id="cSubject" placeholder="Subject" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500">
+                            <span id="errSubject" class="text-red-400 text-xs hidden mt-1 block">Please enter a subject.</span>
+                        </div>
                         
-                        <textarea required placeholder="Your Message" rows="5" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500 resize-none"></textarea>
+                        <div>
+                            <textarea id="cMessage" placeholder="Your Message" rows="5" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-transparent focus:bg-white/10 hover:border-white/30 transition-all duration-300 outline-none placeholder-gray-500 resize-none"></textarea>
+                            <span id="errMessage" class="text-red-400 text-xs hidden mt-1 block">Please enter your message.</span>
+                        </div>
                         
                         <div>
                             <button type="submit" class="bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-10 py-4 rounded-full font-medium shadow-[0_0_20px_rgba(59,130,246,0.3)] w-full md:w-auto mt-2">
@@ -495,6 +506,34 @@
                             </button>
                         </div>
                     </form>
+                    
+                    <script>
+                        function validateContactForm(e) {
+                            e.preventDefault();
+                            let valid = true;
+                            
+                            const name = document.getElementById('cName');
+                            const email = document.getElementById('cEmail');
+                            const subject = document.getElementById('cSubject');
+                            const message = document.getElementById('cMessage');
+                            
+                            if (!name.value.trim()) { document.getElementById('errName').classList.remove('hidden'); name.classList.add('border-red-500'); valid = false; }
+                            else { document.getElementById('errName').classList.add('hidden'); name.classList.remove('border-red-500'); }
+                            
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!email.value.trim() || !emailRegex.test(email.value)) { document.getElementById('errEmail').classList.remove('hidden'); email.classList.add('border-red-500'); valid = false; }
+                            else { document.getElementById('errEmail').classList.add('hidden'); email.classList.remove('border-red-500'); }
+                            
+                            if (!subject.value.trim()) { document.getElementById('errSubject').classList.remove('hidden'); subject.classList.add('border-red-500'); valid = false; }
+                            else { document.getElementById('errSubject').classList.add('hidden'); subject.classList.remove('border-red-500'); }
+                            
+                            if (!message.value.trim()) { document.getElementById('errMessage').classList.remove('hidden'); message.classList.add('border-red-500'); valid = false; }
+                            else { document.getElementById('errMessage').classList.add('hidden'); message.classList.remove('border-red-500'); }
+                            
+                            if (valid) { window.location.href = '404.html'; }
+                            return false;
+                        }
+                    </script>
                 </div>
             </div>
             
@@ -527,50 +566,7 @@
             easing: 'ease-out-cubic'
         });
     </script>
-<script>
-(function() {
-    var msgs = document.querySelectorAll('.pl-message');
-    var bar = document.querySelector('.pl-progress-bar');
-    var idx = 0;
-    var msgInterval = setInterval(function() {
-        if(msgs[idx]) msgs[idx].classList.remove('active');
-        idx++;
-        if(idx < msgs.length) { msgs[idx].classList.add('active'); }
-        if(idx >= msgs.length) clearInterval(msgInterval);
-    }, 500);
-    if(bar) { bar.style.transition='width 1.8s ease'; setTimeout(function(){ bar.style.width='100%'; },100); }
-    window.addEventListener('load', function() {
-        setTimeout(function(){
-            var pre = document.getElementById('preloader');
-            if(pre){ pre.classList.add('loaded'); }
-            document.body.classList.add('preloader-finished');
-        }, 1900);
-    });
-})();
-</script>
-<script>
-// Sticky navbar - adds scrolled class, never hides
-(function() {
-    var navbar = document.getElementById('navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 20) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }, { passive: true });
-    // Hamburger toggle
-    var btn = document.getElementById('hamburger-btn');
-    var menu = document.getElementById('nav-menu-wrapper');
-    if (btn && menu) {
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            menu.classList.toggle('open');
-        });
-    }
-})();
-</script>
+<script src="script.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

@@ -267,19 +267,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 2. MOBILE HAMBURGER MENU (SAFE SCROLL LOCK)
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const navMenuWrapper = document.getElementById('nav-menu-wrapper');
-    let savedScrollY = 0;
     let isMenuOpen = false;
 
     if (hamburgerBtn && navMenuWrapper) {
         const openMenu = () => {
             isMenuOpen = true;
-            savedScrollY = window.scrollY;
             hamburgerBtn.classList.add('active');
             navMenuWrapper.classList.add('open');
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${savedScrollY}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflowY = 'hidden';
+            document.body.style.overflow = 'hidden';
         };
 
         const closeMenu = () => {
@@ -287,11 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isMenuOpen = false;
             hamburgerBtn.classList.remove('active');
             navMenuWrapper.classList.remove('open');
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflowY = '';
-            window.scrollTo(0, savedScrollY);
+            document.body.style.overflow = '';
         };
 
         hamburgerBtn.addEventListener('click', () => {
