@@ -17,7 +17,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #060A20; /* Deep Navy to exactly match Home page */
             color: #ffffff;
-            overflow-x: hidden;
+            
             margin: 0;
             padding: 0;
         }
@@ -571,8 +571,97 @@
     }
 })();
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                const isCurrentlyActive = item.classList.contains('active');
+                
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    if (otherAnswer) otherAnswer.style.maxHeight = null;
+                });
+
+                if (!isCurrentlyActive) {
+                    item.classList.add('active');
+                    const answer = item.querySelector('.faq-answer');
+                    if (answer) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
 </body>
-<footer class="border-t border-white/10 pt-8 pb-8 mt-12 relative z-10" id="contact" style="background: rgba(4, 7, 22, 0.6); backdrop-filter: blur(10px);">
+
+<section class="faq-section">
+<h2 class="wipe-text faq-title">FAQ</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-question">
+<span>What types of businesses do you work with?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>We work with businesses of all sizes, from growing startups to established enterprises, across various industries to optimize their procurement processes.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Do you handle the entire procurement process?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>Yes, we offer end-to-end source-to-pay operations, but we can also step in to manage specific stages depending on your business needs.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Can you work with our existing suppliers?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>Absolutely. We focus on building better supplier relationships, whether that means onboarding new vendors or strengthening ties with your current partners.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Do you only focus on reducing costs?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>No. While cost reduction is a key benefit, we also prioritize quality, compliance, supplier reliability, and long-term business value.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Can you help us find new suppliers?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>Yes, our strategic sourcing team identifies, evaluates, and selects top-tier suppliers based on quality, cost, and capability.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Can you manage procurement for a growing company?</span>
+<span class="arrow">'</span>
+</div>
+<div class="faq-answer">
+<p>Definitely. Our processes are designed to scale, adapting as you grow to respond faster to new opportunities and demands.</p>
+</div>
+</div>
+</div>
+</section>
+  <!-- Footer -->
+  <footer class="border-t border-white/10 pt-8 pb-8 mt-12 relative z-10" id="contact" style="background: rgba(4, 7, 22, 0.6); backdrop-filter: blur(10px);">
   <div class="w-full px-6" style="max-width: 1240px; margin: 0 auto; box-sizing: border-box;">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 <!-- COLUMN 1: LOGO -->
@@ -595,7 +684,7 @@
 <!-- COLUMN 2: QUICK LINKS -->
 <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
 <h4 class="text-white font-semibold mb-6 tracking-wide text-[14px]">QUICK LINKS</h4>
-<ul class="flex flex-col gap-3 text-[13px] text-gray-400">
+<ul class="flex flex-col gap-3 text-[13px] text-gray-400 list-none p-0 m-0">
 <li><a class="hover:text-white transition-colors" href="index.html">Home</a></li>
 <li><a class="hover:text-white transition-colors" href="about.html">About</a></li>
 <li><a class="hover:text-white transition-colors" href="404.html">Services</a></li>
@@ -606,7 +695,7 @@
 <!-- COLUMN 3: SERVICES -->
 <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
 <h4 class="text-white font-semibold mb-6 tracking-wide text-[14px]">SERVICES</h4>
-<ul class="flex flex-col gap-3 text-[13px] text-gray-400">
+<ul class="flex flex-col gap-3 text-[13px] text-gray-400 list-none p-0 m-0">
 <li><a class="hover:text-white transition-colors" href="404.html">Strategic Sourcing</a></li>
 <li><a class="hover:text-white transition-colors" href="404.html">Spend Management</a></li>
 <li><a class="hover:text-white transition-colors" href="404.html">Contract Management</a></li>
@@ -616,7 +705,7 @@
 <!-- COLUMN 4: GET IN TOUCH -->
 <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
 <h4 class="text-white font-semibold mb-6 tracking-wide text-[14px]">GET IN TOUCH</h4>
-<ul class="flex flex-col gap-3 text-[13px] text-gray-400">
+<ul class="flex flex-col gap-3 text-[13px] text-gray-400 list-none p-0 m-0">
 <li>+91 90909 09090</li>
 <li>info@stackly.com</li>
 <li class="leading-relaxed">MMR Complex, Chinna Thirupathi,<br/>Near by Chinna Moniyappan Kovil,<br/>Salem 636008.</li>

@@ -1051,6 +1051,35 @@ function initTestimonials() {
     const cards = document.querySelectorAll('.testimonial-card');
     if (!cards.length) return;
     
+    const grid = document.getElementById('testimonials-grid');
+    let dotsContainer = document.getElementById('testim-indicators');
+    if (!dotsContainer && grid) {
+        dotsContainer = document.createElement('div');
+        dotsContainer.id = 'testim-indicators';
+        dotsContainer.style.display = 'flex';
+        dotsContainer.style.justifyContent = 'center';
+        dotsContainer.style.gap = '10px';
+        dotsContainer.style.marginTop = '30px';
+        grid.parentElement.appendChild(dotsContainer);
+        
+        for (let i = 0; i < cards.length; i++) {
+            const dot = document.createElement('div');
+            dot.style.width = '10px';
+            dot.style.height = '10px';
+            dot.style.borderRadius = '50%';
+            dot.style.backgroundColor = 'rgba(255,255,255,0.2)';
+            dot.style.transition = 'all 0.3s ease';
+            dot.style.cursor = 'pointer';
+            dot.addEventListener('click', () => {
+                testimIndex = i;
+                isPaused = true;
+                updateCards();
+                setTimeout(() => { isPaused = false; }, 5000);
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
     function updateCards() {
         cards.forEach((card, i) => {
             card.classList.remove('t-active', 't-next', 't-prev', 'expanded');
@@ -1062,6 +1091,17 @@ function initTestimonials() {
                 card.classList.add('t-prev');
             }
         });
+        if (dotsContainer) {
+            Array.from(dotsContainer.children).forEach((dot, i) => {
+                if (i === testimIndex) {
+                    dot.style.backgroundColor = '#3B82F6';
+                    dot.style.transform = 'scale(1.3)';
+                } else {
+                    dot.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                    dot.style.transform = 'scale(1)';
+                }
+            });
+        }
     }
     
     function nextTestim() {
@@ -1072,7 +1112,7 @@ function initTestimonials() {
     }
     
     updateCards();
-    testimInterval = setInterval(nextTestim, 3500); // 3.5 seconds gap
+    testimInterval = setInterval(nextTestim, 3500);
 }
 
 window.toggleExpand = function(card) {
