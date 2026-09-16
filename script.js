@@ -1,11 +1,25 @@
 // ── PRELOADER LOGIC ──
 const initPreloader = () => {
     const preloader = document.getElementById('preloader');
-    if (!preloader) return;
+    if (!preloader) {
+        document.body.classList.add('preloader-finished');
+        return;
+    }
 
     const messages = document.querySelectorAll('.pl-message');
     const fill = document.getElementById('pl-progress-fill');
     const percentTxt = document.getElementById('pl-progress-percent');
+    
+    if (!fill || !percentTxt) {
+        document.body.classList.add('preloader-finished');
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 600);
+            }, 300);
+        });
+        return;
+    }
     
     let msgIndex = 0;
     const msgInterval = setInterval(() => {
@@ -72,6 +86,23 @@ const initPreloader = () => {
             // Staggered Reveal
             setTimeout(() => {
                 document.body.classList.add('preloader-finished');
+                
+                // Trigger hero text animations now that preloader is done
+                setTimeout(() => {
+                    const hero = document.getElementById('hero');
+                    if (hero) {
+                        hero.querySelectorAll('.anim-word-stagger span').forEach(span => {
+                            span.style.opacity = '1';
+                            span.style.transform = 'translateY(0) scale(1)';
+                        });
+                        hero.querySelectorAll('.anim-line-reveal .line-inner').forEach((span, index) => {
+                            span.style.transitionDelay = `${0.1 + (index * 0.15)}s`;
+                            span.style.opacity = '1';
+                            span.style.transform = 'translateY(0)';
+                        });
+                    }
+                }, 150); // slight delay after preloader class is added
+                
             }, 100); // Trigger landing page anims
         }, 600);
     };
@@ -91,13 +122,13 @@ initPreloader();
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ── PREMIUM TEXT SPLITTING ──
-    document.querySelectorAll('.wipe-text, .section-title').forEach(el => {
+    // 🚀🌟 PREMIUM TEXT SPLITTING 🌟🚀
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6, .wipe-text, .section-title, .anim-line-reveal').forEach(el => {
         if (!el.classList.contains('anim-word-stagger') && !el.classList.contains('anim-line-reveal')) {
             // Apply different styles alternately or specifically based on section
             const parentId = el.closest('section')?.id;
-            if (parentId === 'services') el.classList.add('anim-word-stagger');
-            else el.classList.add('anim-line-reveal');
+            // Apply word stagger (cascade) to all headings as requested
+            el.classList.add('anim-word-stagger');
         }
         
         if (el.classList.contains('anim-word-stagger')) {
@@ -125,22 +156,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             wordIndex++;
                         }
                     });
-                } else if (node.nodeName.toUpperCase() === 'BR') {
-                    el.appendChild(document.createElement('br'));
                 } else {
+                    // For <br> and other elements, preserve them as is
+                    // To animate nested elements properly, you'd need recursive splitting, but cloneNode is fine for now
                     el.appendChild(node.cloneNode(true));
                 }
             });
         } else if (el.classList.contains('anim-line-reveal')) {
             const html = el.innerHTML;
-            el.innerHTML = `<span style="display:block; overflow:hidden;"><span class="line-inner" style="display:block; opacity:0; transform:translateY(100%); transition:all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;">${html}</span></span>`;
+            el.innerHTML = `<span style="display:block; overflow:hidden;"><span class="line-inner" style="display:block; opacity:0; transform:translateY(100%); transition:all 0.8s cubic-bezier(0.16, 1, 0.3, 1);">${html}</span></span>`;
         }
     });
 
-    // ── UNIVERSAL INTERSECTION OBSERVER ──
+    // ──    // 🌟 UNIVERSAL INTERSECTION OBSERVER 🌟
     const globalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Delay hero animations until preloader finishes
+                if (entry.target.id === 'hero' && !document.body.classList.contains('preloader-finished')) {
+                    // Let the finishPreloader function handle it
+                    return; 
+                }
+
                 entry.target.classList.add('in-view');
                 entry.target.classList.add('revealed'); // Keep compatibility with old CSS
                 
@@ -149,7 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     span.style.opacity = '1';
                     span.style.transform = 'translateY(0) scale(1)';
                 });
-                entry.target.querySelectorAll('.anim-line-reveal .line-inner').forEach(span => {
+                entry.target.querySelectorAll('.anim-line-reveal .line-inner').forEach((span, index) => {
+                    span.style.transitionDelay = `${0.1 + (index * 0.15)}s`;
                     span.style.opacity = '1';
                     span.style.transform = 'translateY(0)';
                 });
@@ -267,14 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 2. MOBILE HAMBURGER MENU (SAFE SCROLL LOCK)
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const navMenuWrapper = document.getElementById('nav-menu-wrapper');
+    let savedScrollY = 0;
     let isMenuOpen = false;
 
     if (hamburgerBtn && navMenuWrapper) {
         const openMenu = () => {
             isMenuOpen = true;
+            savedScrollY = window.scrollY;
             hamburgerBtn.classList.add('active');
             navMenuWrapper.classList.add('open');
-            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflowY = 'hidden';
         };
 
         const closeMenu = () => {
@@ -282,7 +325,11 @@ document.addEventListener('DOMContentLoaded', () => {
             isMenuOpen = false;
             hamburgerBtn.classList.remove('active');
             navMenuWrapper.classList.remove('open');
-            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflowY = '';
+            window.scrollTo(0, savedScrollY);
         };
 
         hamburgerBtn.addEventListener('click', () => {
@@ -628,27 +675,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scrollspy removed as requested by user to keep Home active on the home page.
     
     // Smooth scroll for nav links
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                // close hamburger if open
-                if (navMenu.classList.contains('open')) {
-                    navMenu.classList.remove('open');
-                    hamburgerBtn.classList.remove('active');
-                    document.body.style.overflow = '';
-                    document.body.style.overflowX = 'hidden';
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if (navLinks) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#') && href.length > 1) {
+                    const targetId = href.substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        e.preventDefault();
+                        // close hamburger if open
+                        if (navMenuWrapper && navMenuWrapper.classList.contains('open')) {
+                            closeMenu();
+                        }
+                        
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
-                
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            });
         });
-    });
+    }
     
     // 2. Circular Metrics Counting Animation
     const statsCounters = document.querySelectorAll('.stat-counter');
@@ -1000,8 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const passages = section.querySelectorAll('p, li, .body-text');
         
         // Only apply if they exist in the section
-        if (headings.length > 0 || passages.length > 0) {
-            headings.forEach(h => h.classList.add('anim-section-heading'));
+        if (passages.length > 0) {
             passages.forEach(p => p.classList.add('anim-section-passage'));
         }
     });
@@ -1009,12 +1058,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const advancedSectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                if (entry.target.id === 'hero' && !document.body.classList.contains('preloader-finished')) {
+                    return;
+                }
+
                 const target = entry.target;
                 
-                // First animate headings
-                const headings = target.querySelectorAll('.anim-section-heading');
-                headings.forEach((h, index) => {
-                    setTimeout(() => h.classList.add('revealed'), index * 100);
+                // Trigger cascade text animations (headings)
+                target.querySelectorAll('.anim-word-stagger span').forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0) scale(1)';
+                });
+                target.querySelectorAll('.anim-line-reveal .line-inner').forEach((span, index) => {
+                    span.style.transitionDelay = `${0.1 + (index * 0.15)}s`;
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
                 });
                 
                 // Then animate passages after headings
@@ -1050,7 +1108,7 @@ function initTestimonials() {
         dotsContainer.style.display = 'flex';
         dotsContainer.style.justifyContent = 'center';
         dotsContainer.style.gap = '10px';
-        dotsContainer.style.marginTop = '30px';
+        dotsContainer.style.marginTop = '15px';
         grid.parentElement.appendChild(dotsContainer);
         
         for (let i = 0; i < cards.length; i++) {
